@@ -90,7 +90,11 @@ app.patch("/books/:id", async (req, res) =>{
 
     try {
         await prisma.book.update({
-
+            where: { id }, 
+            data: {
+                title, 
+                price
+            }
         })
     } catch (error) {
         
