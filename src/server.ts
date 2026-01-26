@@ -85,7 +85,16 @@ app.get("/books", async (req, res) => {
 
 // Atualizar Livros
 app.patch("/books/:id", async (req, res) =>{
-    const { title, price }  = req.params
+    const { id }  = req.params 
+    const { title, price } = req.body
+
+    try {
+        await prisma.book.update({
+
+        })
+    } catch (error) {
+        
+    }
 })
 
 // Deletar Livros
