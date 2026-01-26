@@ -98,7 +98,7 @@ app.patch("/books/:id", async (req, res) =>{
         })
         return res.json(updateBook)
     } catch (error) {
-        
+        return res.status(404).json({ error: "Livro não encontrado para ser atualizado" });
     }
 })
 
