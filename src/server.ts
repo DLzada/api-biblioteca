@@ -27,11 +27,6 @@ app.get('/authors', async (req, res) => {
   return res.json(authors);
 });
 
-app.get('/books', async (req, res) => {
-  const books = await prisma.book.findMany();
-  res.json(books);
-});
-
 app.listen(port, () => {
   console.log(` Server on na porta ${port}`);
 });
