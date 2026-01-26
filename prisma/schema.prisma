@@ -1,6 +1,6 @@
 
 generator client {
-  provider = "prisma-client"
+  provider = "postgresql"
   output   = "../src/generated/prisma"
 }
 
