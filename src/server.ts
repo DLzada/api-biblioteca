@@ -54,6 +54,21 @@ app.get("/books", async (req, res) => {
   return res.json(books);
 });
 
+// Deletar Livros
+app.delete("/books", async (req, res)=>{
+    const {id} = req.params
+
+    try {
+        await prisma.book.deleteMany({
+            where: {id}
+        })
+        return res.status(204).send()
+    } catch (error) {
+        return res.status(404).json({
+            message: "Livro nao encontrado"
+        })
+    }
+})
 app.listen(port, () => {
   console.log(` Server on na porta ${port}`);
 });
