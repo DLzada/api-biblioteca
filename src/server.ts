@@ -45,8 +45,12 @@ app.post("/books", async (req, res) => {
 
 // Exibir Livros
 app.get("/books", async (req, res) => {
-  const authors = await prisma.author.findMany();
-  return res.json(authors);
+  const books = await prisma.book.findMany({
+    include: {
+        author: true
+    }
+  });
+  return res.json(books);
 });
 
 app.listen(port, () => {
