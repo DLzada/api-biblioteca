@@ -32,7 +32,7 @@ app.post("/books", async (req, res) => {
   const { title, price, authorId } = req.body;
 
   try {
-    const newBook = await prisma.author.create({
+    const newBook = await prisma.book.create({
       data: { title, price, authorId },
     });
     return res.status(201).json({
@@ -41,6 +41,12 @@ app.post("/books", async (req, res) => {
   } catch (error) {
     return res.status(500).json({ error: "Erro ao cadastrar livro" });
   }
+});
+
+// Exibir Livros
+app.get("/books", async (req, res) => {
+  const authors = await prisma.author.findMany();
+  return res.json(authors);
 });
 
 app.listen(port, () => {
