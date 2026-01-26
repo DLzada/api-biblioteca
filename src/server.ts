@@ -55,7 +55,7 @@ app.get("/books", async (req, res) => {
 });
 
 // Deletar Livros
-app.delete("/books", async (req, res)=>{
+app.delete("/books/:id", async (req, res)=>{
     const {id} = req.params
 
     try {
