@@ -28,7 +28,7 @@ app.get("/authors", async (req, res) => {
 });
 
 // Cadastrar Livro
-app.post("/authors", async (req, res) => {
+app.post("/books", async (req, res) => {
   const { title, price, authorId } = req.body;
 
   try {
