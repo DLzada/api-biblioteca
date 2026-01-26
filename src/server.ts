@@ -83,6 +83,11 @@ app.get("/books", async (req, res) => {
   return res.json(books);
 });
 
+// Atualizar Livros
+app.patch("/books/:id", async (req, res) =>{
+    const { title, price } 
+})
+
 // Deletar Livros
 app.delete("/books/:id", async (req, res) => {
   const { id } = req.params;
