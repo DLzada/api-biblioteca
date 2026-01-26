@@ -7,6 +7,8 @@ const port = 3000;
 
 app.use(express.json());
 
+// ============ Área do AUTOR ===============
+
 // Cadastrar autores
 app.post("/authors", async (req, res) => {
   const { name } = req.body;
@@ -27,7 +29,34 @@ app.get("/authors", async (req, res) => {
   return res.json(authors);
 });
 
-// Cadastrar Livro
+// Deletar Autores
+app.delete("/authors/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.author.deleteMany({
+      where: { id },
+    });
+    return res.status(201).json({
+      message: "Autor deletado com sucesso",
+    });
+  } catch (error: any) {
+    if (error.code === "P2003") {
+      return res.status(400).json({
+        error:
+          "Não é possível deletar um autor que possui livros cadastrados. Delete os livros primeiro.",
+      });
+    }
+    return res.status(404).json({
+      message: "Autor nao encontrado",
+    });
+  }
+});
+
+
+// Área de Livros
+
+// Cadastrar Livros
 app.post("/books", async (req, res) => {
   const { title, price, authorId } = req.body;
 
@@ -70,29 +99,8 @@ app.delete("/books/:id", async (req, res) => {
   }
 });
 
-// Deletar Autor
-app.delete("/authors/:id", async (req, res) => {
-  const { id } = req.params;
 
-  try {
-    await prisma.author.deleteMany({
-      where: { id },
-    });
-    return res.status(201).json({
-      message: "Autor deletado com sucesso",
-    });
-  } catch (error: any) {
-    if (error.code === "P2003") {
-      return res.status(400).json({
-        error:
-          "Não é possível deletar um autor que possui livros cadastrados. Delete os livros primeiro.",
-      });
-    }
-    return res.status(404).json({
-      message: "Autor nao encontrado",
-    });
-  }
-});
+
 app.listen(port, () => {
   console.log(` Server on na porta ${port}`);
 });
