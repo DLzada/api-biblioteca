@@ -75,12 +75,21 @@ app.post("/books", async (req, res) => {
 
 // Exibir Livros
 app.get("/books", async (req, res) => {
-  const books = await prisma.book.findMany({
-    include: {
-      author: true,
-    },
-  });
-  return res.json(books);
+  const {title} = req.query
+
+  try {
+    const books = await prisma.book.findMany({
+      where:{
+        title:{
+          contains: title ? String(title) : undefined,
+          mode: 'insensitive'
+        },
+      },
+    })
+    
+  } catch (error) {
+    
+  }
 });
 
 // Atualizar Livros
