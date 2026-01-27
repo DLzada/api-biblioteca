@@ -5,9 +5,19 @@ O projeto utiliza uma arquitetura moderna com **TypeScript**, garantindo seguran
 
 ---
 
-## 🚀 Demonstração 
+## Demonstração 
 
 A API está hospedada no **Render** e pode ser testada em tempo real:
  **[CLIQUE AQUI PARA ACESSAR A DOCUMENTAÇÃO INTERATIVA (SWAGGER)](https://api-biblioteca-bi7w.onrender.com/docs)**
 
 ---
+
+## 🛠️ Tecnologias e Ferramentas
+
+- **Linguagem:** TypeScript
+- **Framework:** Express.js
+- **ORM:** Prisma
+- **Banco de Dados:** PostgreSQL
+- **Documentação:** Swagger UI & OpenAPI 3.0
+- **Segurança:** CORS
+- **Hospedagem:** Render
