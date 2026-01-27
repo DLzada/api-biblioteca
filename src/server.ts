@@ -14,7 +14,7 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API de Biblioteca DLzzz',
+      title: 'API de Biblioteca do Dois L',
       version: '1.0.0',
       description: 'Documentação da API de gerenciamento de livros e autores',
     },
@@ -24,7 +24,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./src/server.ts'], // Onde o Swagger vai procurar os comentários de documentação
+  apis: ['./src/server.ts'], 
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
