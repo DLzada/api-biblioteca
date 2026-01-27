@@ -68,6 +68,6 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
    ```bash
    git clone [https://github.com/danielluiz07/api-biblioteca.git](https://github.com/danielluiz07/api-biblioteca.git)
    
-2. **Clone o projeto:**
+2. **Instale as depedências:**
    ```bash
    npm install
