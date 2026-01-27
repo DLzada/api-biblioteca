@@ -5,7 +5,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 
 const app = express();
 const prisma = new PrismaClient();
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
 
