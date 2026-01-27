@@ -155,7 +155,21 @@ app.post("/books", async (req, res) => {
   }
 });
 
-// Exibir Livros
+/**
+ * @openapi
+ * /books:
+ * get:
+ * summary: Lista livros com filtro opcional
+ * parameters:
+ * - in: query
+ * name: title
+ * schema:
+ * type: string
+ * description: Nome ou parte do título do livro
+ * responses:
+ * 200:
+ * description: Retorna livros encontrados
+ */
 app.get("/books", async (req, res) => {
   const { title } = req.query;
 
