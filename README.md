@@ -51,3 +51,13 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
 | `POST` | `/authors` | Cria um novo autor |
 | `GET` | `/authors` | Lista todos os autores cadastrados |
 | `DELETE` | `/authors/:id` | Remove um autor e limpa seus livros (Cascade) |
+
+### **Livros (`/books`)**
+| Método | Rota | Descrição |
+| :--- | :--- | :--- |
+| `POST` | `/books` | Cadastra um livro vinculado a um autor |
+| `GET` | `/books` | Lista livros (Suporta query param `?title=`) |
+| `PATCH` | `/books/:id` | Atualiza título ou preço de um livro existente |
+| `DELETE` | `/books/:id` | Remove um livro específico |
+
+---
