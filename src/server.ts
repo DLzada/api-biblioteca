@@ -191,7 +191,31 @@ app.get("/books", async (req, res) => {
   }
 });
 
-// Atualizar Livros
+/**
+ * @openapi
+ * /books/{id}:
+ * patch:
+ * summary: Atualiza dados de um livro
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * requestBody:
+ * content:
+ * application/json:
+ * schema:
+ * type: object
+ * properties:
+ * title:
+ * type: string
+ * price:
+ * type: number
+ * responses:
+ * 200:
+ * description: Livro atualizado
+ */
 app.patch("/books/:id", async (req, res) => {
   const { id } = req.params;
   const { title, price } = req.body;
