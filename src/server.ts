@@ -53,7 +53,6 @@ app.delete("/authors/:id", async (req, res) => {
   }
 });
 
-
 // Área de Livros
 
 // Cadastrar Livros
@@ -75,41 +74,43 @@ app.post("/books", async (req, res) => {
 
 // Exibir Livros
 app.get("/books", async (req, res) => {
-  const {title} = req.query
+  const { title } = req.query;
 
   try {
     const books = await prisma.book.findMany({
-      where:{
-        title:{
+      where: {
+        title: {
           contains: title ? String(title) : undefined,
-          mode: 'insensitive'
+          mode: "insensitive",
         },
       },
-    })
-    
-  } catch (error) {
-    
-  }
+      include: {
+        author: true,
+      },
+    });
+  } catch (error) {}
 });
 
 // Atualizar Livros
-app.patch("/books/:id", async (req, res) =>{
-    const { id }  = req.params 
-    const { title, price } = req.body
+app.patch("/books/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, price } = req.body;
 
-    try {
-        const updateBook = await prisma.book.update({
-            where: { id }, 
-            data: {
-                title, 
-                price
-            }
-        })
-        return res.json(updateBook)
-    } catch (error) {
-        return res.status(404).json({ error: "Livro não encontrado para ser atualizado" });
-    }
-})
+  try {
+    const updateBook = await prisma.book.update({
+      where: { id },
+      data: {
+        title,
+        price,
+      },
+    });
+    return res.json(updateBook);
+  } catch (error) {
+    return res
+      .status(404)
+      .json({ error: "Livro não encontrado para ser atualizado" });
+  }
+});
 
 // Deletar Livros
 app.delete("/books/:id", async (req, res) => {
@@ -127,9 +128,7 @@ app.delete("/books/:id", async (req, res) => {
   }
 });
 
-
-
 app.listen(port, () => {
-  console.log("Acesse: http://localhost:3000")
+  console.log("Acesse: http://localhost:3000");
   console.log(` Server on na porta ${port}`);
 });
