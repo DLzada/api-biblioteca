@@ -21,3 +21,12 @@ A API está hospedada no **Render** e pode ser testada em tempo real:
 - **Documentação:** Swagger UI & OpenAPI 3.0
 - **Segurança:** CORS
 - **Hospedagem:** Render
+
+## 🧠 Complexidade Técnica e Diferenciais
+
+Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e infraestrutura de nível profissional:
+
+### 1. Modelagem Relacional e Integridade
+- **Relacionamento 1:N:** Um autor pode possuir múltiplos livros.
+- **Cascade Delete:** Configurado para manter a integridade referencial. Ao excluir um autor, todos os seus livros vinculados são removidos automaticamente pelo banco de dados.
+
