@@ -84,3 +84,6 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
    npm run dev
    
 A API estará disponível em `http://localhost:3000` e a doc em `/docs`.
+
+---
+Desenvolvido por **Daniel Luiz (Dois L)**.
