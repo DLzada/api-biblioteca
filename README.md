@@ -66,4 +66,4 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
 
 1. **Clone o projeto:**
    ```bash
-   git clone [https://github.com/SEU_USUARIO/api-biblioteca.git](https://github.com/SEU_USUARIO/api-biblioteca.git)
+   git clone [https://github.com/danielluiz07/api-biblioteca.git](https://github.com/danielluiz07/api-biblioteca.git)
