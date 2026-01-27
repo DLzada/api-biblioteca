@@ -236,7 +236,21 @@ app.patch("/books/:id", async (req, res) => {
   }
 });
 
-// Deletar Livros
+/**
+ * @openapi
+ * /books/{id}:
+ * delete:
+ * summary: Remove um livro específico
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * responses:
+ * 204:
+ * description: Livro removido
+ */
 app.delete("/books/:id", async (req, res) => {
   const { id } = req.params;
 
