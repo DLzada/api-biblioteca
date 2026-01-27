@@ -77,7 +77,21 @@ app.get("/authors", async (req, res) => {
   return res.json(authors);
 });
 
-// Deletar Autores
+/**
+ * @openapi
+ * /authors/{id}:
+ * delete:
+ * summary: Remove um autor (e seus livros via Cascade)
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * responses:
+ * 204:
+ * description: Autor deletado com sucesso
+ */
 app.delete("/authors/:id", async (req, res) => {
   const { id } = req.params;
 
