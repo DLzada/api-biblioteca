@@ -121,5 +121,6 @@ app.delete("/books/:id", async (req, res) => {
 
 
 app.listen(port, () => {
+  console.log("Acesse: http://localhost:3000")
   console.log(` Server on na porta ${port}`);
 });
