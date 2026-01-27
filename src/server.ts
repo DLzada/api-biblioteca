@@ -1,11 +1,34 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 
 const app = express();
 const prisma = new PrismaClient();
 const port = 3000;
 
 app.use(express.json());
+
+// Configurações do Swagger
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API de Biblioteca DLzzz',
+      version: '1.0.0',
+      description: 'Documentação da API de gerenciamento de livros e autores',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+      },
+    ],
+  },
+  apis: ['./src/server.ts'], // Onde o Swagger vai procurar os comentários de documentação
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // ============ Área do AUTOR ===============
 
