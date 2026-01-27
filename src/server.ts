@@ -129,6 +129,6 @@ app.delete("/books/:id", async (req, res) => {
 });
 
 app.listen(port, '0.0.0.0', () => {
-  console.log(`🚀 API: http://localhost:${port}`);
-  console.log(`📄 Docs: http://localhost:${port}/docs`);
+  console.log(` API: http://localhost:${port}`);
+  console.log(` Docs: http://localhost:${port}/docs`);
 });
