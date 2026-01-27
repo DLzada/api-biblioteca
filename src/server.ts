@@ -115,9 +115,30 @@ app.delete("/authors/:id", async (req, res) => {
   }
 });
 
-// Área de Livros
+// =========== Área de Livros =========
 
-// Cadastrar Livros
+/**
+ * @openapi
+ * /books:
+ * post:
+ * summary: Cadastra um novo livro
+ * requestBody:
+ * required: true
+ * content:
+ * application/json:
+ * schema:
+ * type: object
+ * properties:
+ * title:
+ * type: string
+ * price:
+ * type: number
+ * authorId:
+ * type: string
+ * responses:
+ * 201:
+ * description: Livro criado com sucesso
+ */
 app.post("/books", async (req, res) => {
   const { title, price, authorId } = req.body;
 
