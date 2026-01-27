@@ -9,14 +9,14 @@ const port = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
 
-// --- CONFIGURAÇÃO DO SWAGGER  ---
+// ========= CONFIGURAÇÃO DO SWAGGER  ===========
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
       title: 'API de Biblioteca do Dois L',
       version: '1.0.0',
-      description: 'Documentação da API de gerenciamento de livros e autores',
+      description: 'Documentação completa da API de livros e autores',
     },
     servers: [{ url: `http://localhost:${port}` }],
     paths: {
@@ -36,26 +36,60 @@ const swaggerOptions = {
           responses: { 201: { description: 'Criado' } }
         }
       },
+      '/authors/{id}': {
+        delete: {
+          summary: 'Remove um autor e seus livros',
+          tags: ['Autores'],
+          parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+          responses: { 
+            200: { description: 'Autor deletado com sucesso' },
+            404: { description: 'Autor não encontrado' }
+          }
+        }
+      },
       '/books': {
         get: {
-          summary: 'Lista livros',
+          summary: 'Lista livros com filtro opcional',
           tags: ['Livros'],
-          parameters: [{ name: 'title', in: 'query', schema: { type: 'string' } }],
+          parameters: [{ name: 'title', in: 'query', schema: { type: 'string' }, description: 'Parte do título' }],
           responses: { 200: { description: 'Sucesso' } }
         },
         post: {
-          summary: 'Cadastra um livro',
+          summary: 'Cadastra um novo livro',
           tags: ['Livros'],
           requestBody: {
             required: true,
             content: { 'application/json': { schema: { type: 'object', properties: { title: { type: 'string' }, price: { type: 'number' }, authorId: { type: 'string' } } } } }
           },
-          responses: { 201: { description: 'Criado' } }
+          responses: { 201: { description: 'Livro criado' } }
+        }
+      },
+      '/books/{id}': {
+        patch: {
+          summary: 'Atualiza dados de um livro',
+          tags: ['Livros'],
+          parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+          requestBody: {
+            content: { 'application/json': { schema: { type: 'object', properties: { title: { type: 'string' }, price: { type: 'number' } } } } }
+          },
+          responses: { 
+            200: { description: 'Livro atualizado' },
+            404: { description: 'Livro não encontrado' }
+          }
+        },
+        delete: {
+          summary: 'Remove um livro específico',
+          tags: ['Livros'],
+          parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+          responses: { 
+            204: { description: 'Livro removido' },
+            404: { description: 'Não encontrado' }
+          }
         }
       }
     }
   },
-  apis: [],
+  apis: [], 
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
