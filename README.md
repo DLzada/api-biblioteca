@@ -7,7 +7,7 @@ O projeto utiliza uma arquitetura moderna com **TypeScript**, garantindo seguran
 
 ---
 
-## Demonstração 
+## Acessar API 
 
 A API está hospedada no **Render** e pode ser testada em tempo real:
  **[CLIQUE AQUI PARA ACESSAR A DOCUMENTAÇÃO INTERATIVA (SWAGGER)](https://api-biblioteca-bi7w.onrender.com/docs)**
