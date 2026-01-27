@@ -75,3 +75,8 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
 3. **Configure o ambiente:** Crie um arquivo `.env` na raiz com a string de conexão com o banco de dados de sua escolha. Exemplo com postgres
    ```bash
    DATABASE_URL="postgresql://user:password@localhost:5432/nomedobanco"
+   
+3. **Prepare o banco e rode o servidor:**
+   ```bash
+   npx prisma migrate dev
+   npm run dev
