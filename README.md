@@ -35,3 +35,19 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
 
 #### 3. Documentação Profissional (Swagger)
 - Em vez de depender de manuais estáticos, a API possui uma interface visual onde é possível visualizar schemas, parâmetros e testar os endpoints diretamente pelo navegador.
+
+#### 4. Infraestrutura em Nuvem
+- Configuração de porta dinâmica (`process.env.PORT`) e host `0.0.0.0` para compatibilidade com ambientes de container/nuvem.
+- Script de build automatizado que executa migrations de banco de dados (`prisma migrate deploy`) antes de iniciar o servidor.
+
+---
+
+
+## 📌 Endpoints da API
+
+### **Autores (`/authors`)**
+| Método | Rota | Descrição |
+| :--- | :--- | :--- |
+| `POST` | `/authors` | Cria um novo autor |
+| `GET` | `/authors` | Lista todos os autores cadastrados |
+| `DELETE` | `/authors/:id` | Remove um autor e limpa seus livros (Cascade) |
