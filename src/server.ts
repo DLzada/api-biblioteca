@@ -32,7 +32,24 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // ============ Área do AUTOR ===============
 
-// Cadastrar autores
+/**
+ * @openapi
+ * /authors:
+ * post:
+ * summary: Cadastra um novo autor
+ * requestBody:
+ * required: true
+ * content:
+ * application/json:
+ * schema:
+ * type: object
+ * properties:
+ * name:
+ * type: string
+ * responses:
+ * 201:
+ * description: Autor criado com sucesso
+ */
 app.post("/authors", async (req, res) => {
   const { name } = req.body;
 
