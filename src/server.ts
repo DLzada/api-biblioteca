@@ -88,7 +88,10 @@ app.get("/books", async (req, res) => {
         author: true,
       },
     });
-  } catch (error) {}
+    return res.json(books)
+  } catch (error) {
+    return res.status(500).json({error: "Erro ao buscar livros"})
+  }
 });
 
 // Atualizar Livros
