@@ -71,3 +71,7 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
 2. **Instale as depedências:**
    ```bash
    npm install
+   
+3. **Configure o ambiente:** Crie um arquivo `.env` na raiz
+   ```bash
+   npm install
