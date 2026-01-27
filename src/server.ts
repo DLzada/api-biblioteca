@@ -20,7 +20,7 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "Documentação completa da API de livros e autores",
     },
-    servers: [{ url: `/` }],
+    servers: [{ url: '/' }],
     paths: {
       "/authors": {
         get: {
