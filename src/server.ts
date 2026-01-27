@@ -63,7 +63,15 @@ app.post("/authors", async (req, res) => {
   }
 });
 
-// Exibir Autores
+/**
+ * @openapi
+ * /authors:
+ * get:
+ * summary: Lista todos os autores
+ * responses:
+ * 200:
+ * description: Lista de autores cadastrados
+ */
 app.get("/authors", async (req, res) => {
   const authors = await prisma.author.findMany();
   return res.json(authors);
