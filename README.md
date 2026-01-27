@@ -61,3 +61,9 @@ Este projeto não é apenas um CRUD simples. Ele implementa regras de negócio e
 | `DELETE` | `/books/:id` | Remove um livro específico |
 
 ---
+
+## ⚙️ Como rodar localmente
+
+1. **Clone o projeto:**
+   ```bash
+   git clone [https://github.com/SEU_USUARIO/api-biblioteca.git](https://github.com/SEU_USUARIO/api-biblioteca.git)
