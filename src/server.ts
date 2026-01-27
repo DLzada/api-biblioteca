@@ -5,7 +5,8 @@ import swaggerJsdoc from 'swagger-jsdoc';
 
 const app = express();
 const prisma = new PrismaClient();
-const port = 3000;
+
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -20,7 +21,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: `http://localhost:${port}`,
       },
     ],
   },
@@ -37,6 +38,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  * /authors:
  * post:
  * summary: Cadastra um novo autor
+ * tags: [Autores]
  * requestBody:
  * required: true
  * content:
@@ -52,7 +54,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  */
 app.post("/authors", async (req, res) => {
   const { name } = req.body;
-
   try {
     const newAuthor = await prisma.author.create({
       data: { name },
@@ -68,6 +69,7 @@ app.post("/authors", async (req, res) => {
  * /authors:
  * get:
  * summary: Lista todos os autores
+ * tags: [Autores]
  * responses:
  * 200:
  * description: Lista de autores cadastrados
@@ -81,7 +83,8 @@ app.get("/authors", async (req, res) => {
  * @openapi
  * /authors/{id}:
  * delete:
- * summary: Remove um autor (e seus livros via Cascade)
+ * summary: Remove um autor
+ * tags: [Autores]
  * parameters:
  * - in: path
  * name: id
@@ -94,24 +97,13 @@ app.get("/authors", async (req, res) => {
  */
 app.delete("/authors/:id", async (req, res) => {
   const { id } = req.params;
-
   try {
-    await prisma.author.deleteMany({
+    await prisma.author.delete({
       where: { id },
     });
-    return res.status(201).json({
-      message: "Autor deletado com sucesso",
-    });
+    return res.status(200).json({ message: "Autor deletado com sucesso" });
   } catch (error: any) {
-    if (error.code === "P2003") {
-      return res.status(400).json({
-        error:
-          "Não é possível deletar um autor que possui livros cadastrados. Delete os livros primeiro.",
-      });
-    }
-    return res.status(404).json({
-      message: "Autor nao encontrado",
-    });
+    return res.status(404).json({ message: "Autor não encontrado ou possui livros dependentes" });
   }
 });
 
@@ -122,6 +114,7 @@ app.delete("/authors/:id", async (req, res) => {
  * /books:
  * post:
  * summary: Cadastra um novo livro
+ * tags: [Livros]
  * requestBody:
  * required: true
  * content:
@@ -137,19 +130,15 @@ app.delete("/authors/:id", async (req, res) => {
  * type: string
  * responses:
  * 201:
- * description: Livro criado com sucesso
+ * description: Livro cadastrado com sucesso
  */
 app.post("/books", async (req, res) => {
   const { title, price, authorId } = req.body;
-
   try {
     const newBook = await prisma.book.create({
       data: { title, price, authorId },
     });
-    return res.status(201).json({
-      newBook,
-      message: "Livro cadastrado com sucesso",
-    });
+    return res.status(201).json({ newBook, message: "Livro cadastrado com sucesso" });
   } catch (error) {
     return res.status(500).json({ error: "Erro ao cadastrar livro" });
   }
@@ -160,34 +149,28 @@ app.post("/books", async (req, res) => {
  * /books:
  * get:
  * summary: Lista livros com filtro opcional
+ * tags: [Livros]
  * parameters:
  * - in: query
  * name: title
  * schema:
  * type: string
- * description: Nome ou parte do título do livro
  * responses:
  * 200:
  * description: Retorna livros encontrados
  */
 app.get("/books", async (req, res) => {
   const { title } = req.query;
-
   try {
     const books = await prisma.book.findMany({
       where: {
-        title: {
-          contains: title ? String(title) : undefined,
-          mode: "insensitive",
-        },
+        title: { contains: title ? String(title) : undefined, mode: "insensitive" },
       },
-      include: {
-        author: true,
-      },
+      include: { author: true },
     });
-    return res.json(books)
+    return res.json(books);
   } catch (error) {
-    return res.status(500).json({error: "Erro ao buscar livros"})
+    return res.status(500).json({ error: "Erro ao buscar livros" });
   }
 });
 
@@ -196,6 +179,7 @@ app.get("/books", async (req, res) => {
  * /books/{id}:
  * patch:
  * summary: Atualiza dados de um livro
+ * tags: [Livros]
  * parameters:
  * - in: path
  * name: id
@@ -219,20 +203,14 @@ app.get("/books", async (req, res) => {
 app.patch("/books/:id", async (req, res) => {
   const { id } = req.params;
   const { title, price } = req.body;
-
   try {
     const updateBook = await prisma.book.update({
       where: { id },
-      data: {
-        title,
-        price,
-      },
+      data: { title, price },
     });
     return res.json(updateBook);
   } catch (error) {
-    return res
-      .status(404)
-      .json({ error: "Livro não encontrado para ser atualizado" });
+    return res.status(404).json({ error: "Livro não encontrado" });
   }
 });
 
@@ -241,6 +219,7 @@ app.patch("/books/:id", async (req, res) => {
  * /books/{id}:
  * delete:
  * summary: Remove um livro específico
+ * tags: [Livros]
  * parameters:
  * - in: path
  * name: id
@@ -253,20 +232,15 @@ app.patch("/books/:id", async (req, res) => {
  */
 app.delete("/books/:id", async (req, res) => {
   const { id } = req.params;
-
   try {
-    await prisma.book.deleteMany({
-      where: { id },
-    });
+    await prisma.book.delete({ where: { id } });
     return res.status(204).send();
   } catch (error) {
-    return res.status(404).json({
-      message: "Livro nao encontrado",
-    });
+    return res.status(404).json({ message: "Livro não encontrado" });
   }
 });
 
 app.listen(port, () => {
-  console.log("Acesse: http://localhost:3000");
-  console.log(` Server on na porta ${port}`);
+  console.log(`🚀 Server on: http://localhost:${port}`);
+  console.log(`📄 Docs on: http://localhost:${port}/docs`);
 });
