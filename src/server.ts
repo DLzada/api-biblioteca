@@ -100,11 +100,23 @@ app.post("/books", async (req, res) => {
 
 app.get("/books", async (req, res) => {
   const { title } = req.query;
-  const books = await prisma.book.findMany({
-    where: { title: { contains: title ? String(title) : undefined, mode: "insensitive" } },
-    include: { author: true },
-  });
-  res.json(books);
+
+  try {
+    const books = await prisma.book.findMany({
+      where: title ? {
+        title: {
+          contains: String(title),
+          mode: "insensitive",
+        },
+      } : {}, 
+      include: {
+        author: true,
+      },
+    });
+    return res.json(books);
+  } catch (error) {
+    return res.status(500).json({ error: "Erro ao buscar livros" });
+  }
 });
 
 app.patch("/books/:id", async (req, res) => {
